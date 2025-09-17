@@ -8,7 +8,7 @@ export default function FooterSection() {
 				<div className="mb-8 flex flex-wrap justify-between gap-8">
 					<div>
 						<div className="flex items-center space-x-2 mb-4">
-							<div className="flex items-center justify-center w-8 h-8 bg-primary/60 rounded-lg">
+							<div className="flex items-center justify-center w-8 h-8 bg-primary rounded-lg">
 								<Image
 									src="/taskbridge_white.png"
 									alt="logo"
