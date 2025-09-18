@@ -3,7 +3,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { Edit, MoreHorizontal, Plus } from "lucide-react";
 
-import { getStatusColor } from "@/lib/utils";
+import { getEmployerStatusColor } from "@/lib/utils";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -12,7 +12,6 @@ import { Card, CardContent } from "@/components/ui/card";
 
 import { MockJobProp } from "@/types/dashboard/employer-type";
 import { QUERIES } from '@/services/dashboard/employer/employer-service';
-
 
 export default function EmployerJobs() {
 	const { data: jobs, isFetching: jobsFetching } = useQuery({
@@ -24,14 +23,14 @@ export default function EmployerJobs() {
 
 	const renderJobs = jobs.map((job) => {
 		const { id, title, description, budget, duration, status, proposals, posted, skills } = job;
-		const cname = getStatusColor(status);
+		const cname = getEmployerStatusColor(status);
 
 		const jobSkills = skills.map((skill) => {
 			return (<Badge key={skill} variant="secondary">{skill}</Badge>);
 		});
 
 		return (
-			<Card key={id} className='mb-6 mr-4 '>
+			<Card key={id} className='mb-6 mr-4'>
 				<CardContent className="p-6">
 					<div className="flex items-start justify-between mb-4">
 						<div className="flex-1">
@@ -83,7 +82,6 @@ export default function EmployerJobs() {
 					<div className="flex-1 h-72 bg-muted rounded" />
 				</div>
 			) : (
-
 				<ScrollArea className="space-y-4 h-128">
 					{renderJobs}
 				</ScrollArea>

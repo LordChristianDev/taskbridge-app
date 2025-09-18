@@ -17,7 +17,7 @@ import { FilterFreelancersProp, MockFreelancerProp } from "@/types/dashboard/emp
 import { QUERIES } from '@/services/dashboard/employer/employer-service';
 
 export default function EmployerTalent() {
-	const [search, setSearch] = useState<FilterFreelancersProp["search"]>();
+	const [search, setSearch] = useState<FilterFreelancersProp["search"]>("");
 
 	const { data: freelancers, isFetching: freelancersFetching } = useQuery({
 		queryKey: ['employer-freelancers', { search }],

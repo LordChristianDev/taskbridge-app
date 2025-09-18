@@ -3,7 +3,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { Plus, Eye } from "lucide-react";
 
-import { getStatusColor } from "@/lib/utils";
+import { getEmployerStatusColor } from "@/lib/utils";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -29,7 +29,7 @@ export default function EmployerOverview() {
 
 	const renderJobs = jobs.slice(0, 2).map((job) => {
 		const { id, title, budget, duration, status, proposals } = job;
-		const cname = getStatusColor(status)
+		const cname = getEmployerStatusColor(status)
 
 		return (
 			<div key={id} className="p-4 flex items-start justify-between border rounded-lg">
@@ -57,7 +57,7 @@ export default function EmployerOverview() {
 		.filter((p) => p.status === "in-progress")
 		.map((project) => {
 			const { id, title, freelancer, status, progress } = project;
-			const cname = getStatusColor(status)
+			const cname = getEmployerStatusColor(status)
 
 			return (
 				<div key={id} className="p-4 border rounded-lg">

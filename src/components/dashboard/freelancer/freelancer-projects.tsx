@@ -1,37 +1,35 @@
-"use client"
-
 import { useQuery } from "@tanstack/react-query";
-import { MessageSquare, MoreHorizontal } from "lucide-react";
+import { MessageSquare } from "lucide-react";
 
-import { getEmployerStatusColor } from "@/lib/utils";
+import { getFreelancerStatusColor } from "@/lib/utils";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { Card, CardContent } from "@/components/ui/card";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
-import { MockProjectProp } from "@/types/dashboard/employer-type";
-import { QUERIES } from "@/services/dashboard/employer/employer-service";
+import { MockActiveProjectProp } from "@/types/dashboard/freelancer-type";
+import { QUERIES } from "@/services/dashboard/freelancer/freelancer-service";
 
-export default function EmployerProjects() {
+export default function FreelancerProjects() {
 	const { data: projects, isFetching: projectsFetching } = useQuery({
-		queryKey: ['employer-projects'],
-		queryFn: () => QUERIES.fetchMockProjects(),
-		initialData: [] as MockProjectProp[],
+		queryKey: ['freelancer-active-projects'],
+		queryFn: () => QUERIES.fetchMockActiveProjects(),
+		initialData: [] as MockActiveProjectProp[],
 		refetchOnMount: (query) => !query.state.data || query.state.data.length === 0,
 	});
 
 	const renderProjects = projects.map((project) => {
-		const { id, title, freelancer, budget, deadline, progress, lastUpdate, status } = project;
-		const cname = getEmployerStatusColor(status);
+		const { id, title, client, budget, deadline, lastUpdate, progress, status } = project;
+		const cname = getFreelancerStatusColor(status);
 
 		return (
-			<Card key={id} className='mb-6 mr-4'>
+			<Card key={id} className="mb-6 mr-4">
 				<CardContent className="p-6">
 					<div className="flex items-start justify-between mb-4">
 						<div className="flex-1">
 							<h3 className="text-lg font-semibold mb-1">{title}</h3>
-							<p className="text-sm text-muted-foreground mb-3">Working with {freelancer}</p>
+							<p className="text-sm text-muted-foreground mb-3">Working for {client}</p>
 
 							<div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
 								<div>
@@ -74,21 +72,17 @@ export default function EmployerProjects() {
 							<Button variant="ghost" size="sm">
 								<MessageSquare className="w-4 h-4" />
 							</Button>
-
-							<Button variant="ghost" size="sm">
-								<MoreHorizontal className="w-4 h-4" />
-							</Button>
 						</div>
 					</div>
 				</CardContent>
-			</Card>
+			</ Card>
 		);
 	});
 
 	return (
 		<>
 			<div className="flex items-center justify-between">
-				<h2 className="text-2xl font-bold">Projects</h2>
+				<h2 className="text-2xl font-bold">Active Projects</h2>
 			</div>
 
 			{projectsFetching ? (
@@ -98,7 +92,7 @@ export default function EmployerProjects() {
 			) : (
 				<ScrollArea className="space-y-4 h-128">
 					{renderProjects}
-				</ScrollArea >
+				</ScrollArea>
 			)}
 		</>
 	);
