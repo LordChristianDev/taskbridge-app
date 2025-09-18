@@ -1,6 +1,6 @@
 import { Briefcase, Users } from "lucide-react";
 
-import { HowItWorksDataProp } from "@/types/authentication/landing/landing-types";
+import { HowItWorksDataProp } from "@/types/authentication/landing-types";
 import { forEmployersData, forFreelancersData } from "@/services/authentication/landing/landing-services";
 
 const renderHowItWorks = (list: HowItWorksDataProp[]) => list.map((item) => {

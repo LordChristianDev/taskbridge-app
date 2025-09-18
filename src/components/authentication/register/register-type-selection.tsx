@@ -6,7 +6,7 @@ import { User, Users } from "lucide-react";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
-import { RegisterPageProp } from "@/types/authentication/register/register-types";
+import { RegisterPageProp } from "@/types/authentication/register-types";
 
 type RegisterTypeSelectionProp = {
 	onChange: (updates: RegisterPageProp) => void;

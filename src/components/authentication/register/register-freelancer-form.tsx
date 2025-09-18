@@ -13,9 +13,9 @@ import { Textarea } from "@/components/ui/textarea";
 import { DatePicker } from "@/components/ui/date-picker";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
-import { FreelancerFormProp, FreelancerFormSchema } from "@/types/authentication/register/register-types";
+import { FreelancerFormProp, FreelancerFormSchema } from "@/types/authentication/register-types";
 
-export default function RegisterFreelancerForm() {
+export default function RegisterFreelacerForm() {
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const {
 		register,

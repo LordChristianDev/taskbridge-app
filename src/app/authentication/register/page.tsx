@@ -9,8 +9,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import RegisterTypeSelection from "@/components/authentication/register/register-type-selection";
 import RegisterFreelancerForm from "@/components/authentication/register/register-freelancer-form";
 
-
-import { RegisterPageProp } from "@/types/authentication/register/register-types";
+import { RegisterPageProp } from "@/types/authentication/register-types";
 import RegisterEmployerForm from "@/components/authentication/register/register-employer-form";
 
 export default function RegisterPage() {
@@ -45,6 +44,7 @@ export default function RegisterPage() {
 							}}
 						/>
 
+						{/* Register Form */}
 						{userType === "freelancer" ? (
 							<RegisterFreelancerForm />
 						) : (

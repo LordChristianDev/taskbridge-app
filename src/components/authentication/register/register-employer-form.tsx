@@ -12,7 +12,7 @@ import { Button } from "@/components/ui/button";
 import { DatePicker } from "@/components/ui/date-picker";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
-import { EmployerFormProp, EmployerFormSchema } from "@/types/authentication/register/register-types";
+import { EmployerFormProp, EmployerFormSchema } from "@/types/authentication/register-types";
 
 export default function RegisterEmployerForm() {
 	const [isLoading, setIsLoading] = useState<boolean>(false);

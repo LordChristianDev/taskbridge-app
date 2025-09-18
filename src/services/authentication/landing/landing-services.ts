@@ -1,4 +1,4 @@
-import { FeatureDataProp, HowItWorksDataProp, NavigationBarDataProp, StatsSectionDataProp } from "@/types/authentication/landing/landing-types";
+import { FeatureDataProp, HowItWorksDataProp, NavigationBarDataProp, StatsSectionDataProp } from "@/types/authentication/landing-types";
 import { Clock, Shield, Star } from "lucide-react";
 
 

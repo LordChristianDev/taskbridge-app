@@ -7,6 +7,7 @@ import { GeistSans } from "geist/font/sans"
 import { GeistMono } from "geist/font/mono"
 
 import { ThemeProvider } from "@/context/useTheme"
+import { QueryProvider } from "@/lib/query-provider"
 
 import "./globals.css"
 
@@ -27,12 +28,14 @@ export default function RootLayout({
     <html lang="en">
       <link rel="icon" href="/icon.ico" sizes="any" />
       <body className={`font-sans ${GeistSans.variable} ${GeistMono.variable}`}>
-        <ThemeProvider>
-          <Suspense fallback={null}>
-            {children}
-            <Analytics />
-          </Suspense>
-        </ThemeProvider>
+        <QueryProvider>
+          <ThemeProvider>
+            <Suspense fallback={null}>
+              {children}
+              <Analytics />
+            </Suspense>
+          </ThemeProvider>
+        </QueryProvider>
       </body>
     </html>
   )
