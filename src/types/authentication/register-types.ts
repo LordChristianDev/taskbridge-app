@@ -8,7 +8,6 @@ export const FreelancerFormSchema = z.object({
 	birth_date: z.string().min(1, "Date of birth is required"),
 	phone: z.string().min(1, "Phone number is required"),
 	email: z.string().min(1, "Email address is required"),
-	user_type: z.string().min(1, "User Type is required"),
 
 	bio: z.string().min(1, "Professional bio is required"),
 
@@ -27,7 +26,6 @@ export const EmployerFormSchema = z.object({
 	birth_date: z.string().min(1, "Date of birth is required"),
 	phone: z.string().min(1, "Phone number is required"),
 	email: z.string().min(1, "Email address is required"),
-	user_type: z.string().min(1, "User Type is required"),
 
 	company: z.string().min(1, "Company name is required"),
 

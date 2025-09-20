@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Card, CardContent } from "@/components/ui/card";
 
 import { FreelancerDashboardStatProp } from "@/types/dashboard/freelancer-type";
-import { QUERIES } from "@/services/dashboard/freelancer/freelancer-service";
+import { QUERIES } from "@/services/dashboard/freelancer-service";
 
 export default function FreelancerStats() {
 	const { data: stats, isFetching: statsFetching } = useQuery({

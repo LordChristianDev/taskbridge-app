@@ -9,7 +9,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
 import { MockActiveProjectProp } from "@/types/dashboard/freelancer-type";
-import { QUERIES } from "@/services/dashboard/freelancer/freelancer-service";
+import { QUERIES } from "@/services/dashboard/freelancer-service";
 
 export default function FreelancerProjects() {
 	const { data: projects, isFetching: projectsFetching } = useQuery({

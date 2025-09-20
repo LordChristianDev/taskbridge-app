@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Card, CardContent } from "@/components/ui/card";
 
 import { EmployerDashboardStatProp } from "@/types/dashboard/employer-type";
-import { QUERIES } from "@/services/dashboard/employer/employer-service";
+import { QUERIES } from "@/services/dashboard/employer-service";
 
 export default function EmployerStats() {
 	const { data: stats, isFetching: statsFetching } = useQuery({

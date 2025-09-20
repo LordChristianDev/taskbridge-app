@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
 import { MockActiveProjectProp, MockJobProp } from '@/types/dashboard/freelancer-type';
-import { QUERIES } from '@/services/dashboard/freelancer/freelancer-service';
+import { QUERIES } from '@/services/dashboard/freelancer-service';
 
 export default function FreelancerOverview() {
 	const { data: jobs, isFetching: jobsFetching } = useQuery({

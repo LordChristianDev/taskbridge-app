@@ -6,10 +6,13 @@ import type { Metadata } from "next"
 import { GeistSans } from "geist/font/sans"
 import { GeistMono } from "geist/font/mono"
 
+import { AuthProvider } from "@/context/useAuth"
 import { ThemeProvider } from "@/context/useTheme"
+import { ProfileProvider } from "@/context/useProfile"
 import { QueryProvider } from "@/lib/query-provider"
 
 import "./globals.css"
+
 
 export const metadata: Metadata = {
   title: "Taskbridge",
@@ -30,10 +33,14 @@ export default function RootLayout({
       <body className={`font-sans ${GeistSans.variable} ${GeistMono.variable}`}>
         <QueryProvider>
           <ThemeProvider>
-            <Suspense fallback={null}>
-              {children}
-              <Analytics />
-            </Suspense>
+            <AuthProvider>
+              <ProfileProvider>
+                <Suspense fallback={null}>
+                  {children}
+                  <Analytics />
+                </Suspense>
+              </ProfileProvider>
+            </AuthProvider>
           </ThemeProvider>
         </QueryProvider>
       </body>

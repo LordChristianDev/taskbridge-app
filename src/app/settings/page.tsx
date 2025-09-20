@@ -1,9 +1,11 @@
 "use client"
 
-import { useAuth } from "@/components/auth-guard"
-import { AuthGuard } from "@/components/auth-guard"
-import { FreelancerSettings } from "@/components/freelancer-settings"
-import { EmployerSettings } from "@/components/employer-settings"
+import { useAuth } from "@/context/useAuth"
+import { useRoutes } from "@/hooks/useRoutes"
+
+import { AuthGuard } from "@/components/authentication/auth-guard"
+import { FreelancerSettings } from "@/components/settings/freelancer-settings"
+import { EmployerSettings } from "@/components/settings/employer-settings"
 
 export default function SettingsPage() {
   return (
@@ -14,12 +16,16 @@ export default function SettingsPage() {
 }
 
 function SettingsContent() {
-  const { user } = useAuth()
+  const { user, signOut } = useAuth();
+  const { move } = useRoutes();
 
-  if (user?.type === "freelancer") {
+  if (user?.user_type === "freelancer") {
     return <FreelancerSettings />
-  } else if (user?.type === "employer") {
+  } else if (user?.user_type === "employer") {
     return <EmployerSettings />
+  } else {
+    signOut();
+    move("/login");
   }
 
   return null

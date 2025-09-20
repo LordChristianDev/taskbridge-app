@@ -1,38 +1,55 @@
 export type FreelancerProp = {
 	id: number;
-	first_name: string;
-	last_name: string;
-	sex: string;
-	birth_date: string;
-	phone: string;
-	email: string;
-	bio: string;
+	user_id: number;
 
+	first_name: string;
 	middle_name: string | null;
+	last_name: string;
 	suffix: string | null;
 
-	education: string | null;
+	sex: string;
+	birth_date: string;
+	avatar_url: string | null;
+	cover_url: string | null;
+	phone: string;
+	email: string;
+
+	bio: string;
 	title: string | null;
-	current_rate: string | null;
-	profile_img: string | null;
+	rate: string | null;
+	education: string | null;
 	skills: string[] | null;
+
+	created_at: string;
 }
 
 export type EmployerProp = {
 	id: number;
+	user_id: number;
+
 	first_name: string;
+	middle_name: string | null;
 	last_name: string;
+	suffix: string | null;
+
 	sex: string;
 	birth_date: string;
 	phone: string;
 	email: string;
-	company: string;
+	avatar_url: string | null;
+	cover_url: string | null;
 
-	middle_name: string | null;
-	suffix: string | null;
-
-	company_description: string | null;
 	title: string | null;
-	profile_img: string | null;
+	company: string;
+	company_description: string | null;
 	company_categories: string[] | null;
+
+	created_at: string;
+}
+
+export type UpdateUploadProp = {
+	id?: string;
+	file: File;
+	url?: string;
+	type: string;
 }

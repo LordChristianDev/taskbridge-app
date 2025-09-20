@@ -7,7 +7,7 @@ import { Badge } from "@/components/ui/badge"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { ArrowLeft, Briefcase, Clock, DollarSign, Users, Star, MapPin, Calendar } from "lucide-react"
 import Link from "next/link"
-import { useAuth } from "@/components/auth-guard"
+import { useAuth } from "@/components/authentication/auth-guard"
 
 // Mock job data - in real app, this would be fetched based on the ID
 const mockJob = {

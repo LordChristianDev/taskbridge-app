@@ -7,11 +7,11 @@ import { getEmployerStatusColor } from "@/lib/utils";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { ScrollArea } from '@/components/scroll-area';
+import { ScrollArea } from '@/components/ui/scroll-area';
 import { Card, CardContent } from "@/components/ui/card";
 
 import { MockJobProp } from "@/types/dashboard/employer-type";
-import { QUERIES } from '@/services/dashboard/employer/employer-service';
+import { QUERIES } from '@/services/dashboard/employer-service';
 
 export default function EmployerJobs() {
 	const { data: jobs, isFetching: jobsFetching } = useQuery({

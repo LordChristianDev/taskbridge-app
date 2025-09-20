@@ -11,7 +11,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Card, CardContent } from "@/components/ui/card";
 
 import { MockProjectProp } from "@/types/dashboard/employer-type";
-import { QUERIES } from "@/services/dashboard/employer/employer-service";
+import { QUERIES } from "@/services/dashboard/employer-service";
 
 export default function EmployerProjects() {
 	const { data: projects, isFetching: projectsFetching } = useQuery({

@@ -18,7 +18,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
 import { CategoryProp, FilterMockJobs, LevelProp, MockJobProp } from "@/types/dashboard/freelancer-type";
-import { QUERIES } from "@/services/dashboard/freelancer/freelancer-service";
+import { QUERIES } from "@/services/dashboard/freelancer-service";
 
 export default function FreelancerJobs() {
 	const [search, setSearch] = useState<FilterMockJobs['search']>("");

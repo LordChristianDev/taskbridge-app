@@ -1,6 +1,6 @@
 "use client"
 
-import { AuthGuard } from "@/components/auth-guard"
+import { AuthGuard } from "@/components/authentication/auth-guard"
 import { PostJobForm } from "@/components/post-job-form"
 
 export default function PostJobPage() {

@@ -14,7 +14,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import AvatarIcon from "@/components/common/AvatarIcon";
 
 import { FilterFreelancersProp, MockFreelancerProp } from "@/types/dashboard/employer-type";
-import { QUERIES } from '@/services/dashboard/employer/employer-service';
+import { QUERIES } from '@/services/dashboard/employer-service';
 
 export default function EmployerTalent() {
 	const [search, setSearch] = useState<FilterFreelancersProp["search"]>("");

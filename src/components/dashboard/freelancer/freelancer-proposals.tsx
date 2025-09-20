@@ -10,7 +10,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
 import { MockProposalProp } from "@/types/dashboard/freelancer-type";
-import { QUERIES } from "@/services/dashboard/freelancer/freelancer-service";
+import { QUERIES } from "@/services/dashboard/freelancer-service";
 
 export default function FreelancerProposals() {
 	const { data: proposals, isFetching: proposalsFetching } = useQuery({

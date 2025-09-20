@@ -1,3 +1,11 @@
+"use client"
+
+import { useEffect } from "react";
+import { useQuery } from '@tanstack/react-query'
+
+import { useAuth } from "@/context/useAuth";
+import { useProfile } from "@/context/useProfile";
+
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 import FreelancerAppbar from "@/components/dashboard/freelancer/freelancer-appbar";
@@ -7,7 +15,26 @@ import FreelancerJobs from "@/components/dashboard/freelancer/freelancer-jobs";
 import FreelancerProposals from "@/components/dashboard/freelancer/freelancer-proposals";
 import FreelancerProjects from "@/components/dashboard/freelancer/freelancer-projects";
 
+import { QUERIES } from "@/services/personalization/profile-service";
+
 export function FreelancerDashboard() {
+  const { user } = useAuth();
+  const { storeProfile } = useProfile();
+
+  const { data: profileData, isFetching: profileFetching } = useQuery({
+    queryKey: ['freelancer-profile-dashboard', user?.id],
+    queryFn: async () => QUERIES.fetchFreelancer(user!.id),
+    refetchOnWindowFocus: true,
+    refetchOnMount: true,
+    enabled: !!user?.id,
+    staleTime: 0,
+  });
+
+  useEffect(() => {
+    if (profileData && !profileFetching) {
+      storeProfile(profileData);
+    }
+  }, [profileData, profileFetching]);
 
   return (
     <div className="min-h-screen bg-background">

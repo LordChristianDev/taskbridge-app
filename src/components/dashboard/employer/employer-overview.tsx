@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
 import { MockJobProp, MockProjectProp } from "@/types/dashboard/employer-type";
-import { QUERIES } from '@/services/dashboard/employer/employer-service';
+import { QUERIES } from '@/services/dashboard/employer-service';
 
 export default function EmployerOverview() {
 	const { data: jobs, isFetching: jobsFetching } = useQuery({
