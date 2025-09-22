@@ -5,6 +5,7 @@ export const useRoutes = () => {
 	const path = usePathname();
 
 	const move = (path: string) => router.push(path);
+	const back = () => router.back();
 
-	return { path, move };
+	return { path, move, back };
 }

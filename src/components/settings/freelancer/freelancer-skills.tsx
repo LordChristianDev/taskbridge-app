@@ -5,8 +5,8 @@ import { useQuery } from "@tanstack/react-query";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, Controller, type SubmitHandler } from "react-hook-form";
 
-import { useAuth } from "@/context/useAuth";
-import { useProfile } from "@/context/useProfile";
+import { useAuth } from "@/context/use-auth";
+import { useProfile } from "@/context/use-profile";
 import { showToast } from "@/lib/show-toast";
 import { extractPriceAndPeriod } from "@/lib/utils";
 

@@ -1,6 +1,6 @@
 "use client"
 
-import { useAuth } from "@/context/useAuth";
+import { useAuth } from "@/context/use-auth";
 
 import { AuthGuard } from "@/components/authentication/auth-guard";
 import { EmployerDashboard } from "@/components/dashboard/employer/employer-dashboard";

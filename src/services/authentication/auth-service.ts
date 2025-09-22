@@ -1,4 +1,4 @@
-import { UserProp } from "@/context/useAuth";
+import { UserProp } from "@/context/use-auth";
 import { supabase } from "@/lib/supabase";
 
 export const QUERIES = {

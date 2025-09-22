@@ -190,7 +190,7 @@ export const MUTATIONS = {
 		// Upload Avatar to Supabase Bucket
 		MUTATIONS.uploadSupabaseToBucket(name, "avatars", avatar);
 
-		const avatar_url = QUERIES.retrieveBucketUrl(name, "avatars");
+		const avatar_url = await QUERIES.retrieveBucketUrl(name, "avatars");
 		if (!avatar_url) return null;
 
 		const { data, error } = await supabase
@@ -229,8 +229,10 @@ export const MUTATIONS = {
 		// Upload Cover to Supabase Bucket
 		MUTATIONS.uploadSupabaseToBucket(name, "covers", cover);
 
-		const cover_url = QUERIES.retrieveBucketUrl(name, "covers");
+		const cover_url = await QUERIES.retrieveBucketUrl(name, "covers");
 		if (!cover_url) return null;
+
+		console.log("Cover URL: ", cover_url);
 
 		const { data, error } = await supabase
 			.from(table)

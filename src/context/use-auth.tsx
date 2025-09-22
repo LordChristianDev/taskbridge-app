@@ -118,7 +118,7 @@ export type UserProp = {
 	id: number;
 	created_at: string;
 	google_uid: string;
-	user_type: string;
+	user_type: "freelancer" | "employer";
 	is_setup: boolean;
 	last_login: string;
 }

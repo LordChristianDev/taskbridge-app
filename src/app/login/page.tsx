@@ -7,8 +7,8 @@ import { ArrowLeft } from "lucide-react";
 
 import type React from "react";
 
-import { useAuth } from "@/context/useAuth";
-import { useRoutes } from "@/hooks/useRoutes";
+import { useAuth } from "@/context/use-auth";
+import { useRoutes } from "@/hooks/use-routes";
 
 import {
 	Card,

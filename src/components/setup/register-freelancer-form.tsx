@@ -4,8 +4,8 @@ import { useEffect, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, Controller, type SubmitHandler } from "react-hook-form";
 
-import { useAuth } from "@/context/useAuth";
-import { useRoutes } from "@/hooks/useRoutes";
+import { useAuth } from "@/context/use-auth";
+import { useRoutes } from "@/hooks/use-routes";
 import { showToast } from "@/lib/show-toast";
 
 import {

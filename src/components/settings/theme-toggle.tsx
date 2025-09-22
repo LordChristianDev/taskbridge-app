@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { Moon, Sun } from "lucide-react";
 
-import { useTheme } from "@/context/useTheme";
+import { useTheme } from "@/context/use-theme";
 
 import { Button } from "@/components/ui/button";
 

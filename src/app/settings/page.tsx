@@ -1,6 +1,6 @@
 "use client"
 
-import { useAuth } from "@/context/useAuth"
+import { useAuth } from "@/context/use-auth"
 
 import { AuthGuard } from "@/components/authentication/auth-guard"
 import { FreelancerSettings } from "@/components/settings/freelancer/freelancer-settings"
@@ -13,6 +13,7 @@ export default function SettingsPage() {
     </AuthGuard>
   )
 }
+
 
 function SettingsContent() {
   const { user } = useAuth();

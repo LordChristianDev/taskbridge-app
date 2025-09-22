@@ -11,7 +11,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Card, CardContent } from "@/components/ui/card";
-import AvatarIcon from "@/components/common/AvatarIcon";
+import AvatarIcon from "@/components/common/avatar-icon";
 
 import { FilterFreelancersProp, MockFreelancerProp } from "@/types/dashboard/employer-type";
 import { QUERIES } from '@/services/dashboard/employer-service';

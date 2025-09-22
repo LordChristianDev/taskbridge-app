@@ -6,9 +6,9 @@ import Image from "next/image";
 import { useQuery } from '@tanstack/react-query'
 import { LogOut, Settings, User } from "lucide-react";
 
-import { useAuth } from "@/context/useAuth";
-import { useProfile } from "@/context/useProfile";
-import { useRoutes } from "@/hooks/useRoutes";
+import { useAuth } from "@/context/use-auth";
+import { useProfile } from "@/context/use-profile";
+import { useRoutes } from "@/hooks/use-routes";
 import { createFullName, getInitials } from "@/lib/utils";
 
 import { Badge } from "@/components/ui/badge";
@@ -19,7 +19,7 @@ import {
 	DropdownMenuSeparator,
 	DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu";
-import AvatarIcon from "@/components/common/AvatarIcon";
+import AvatarIcon from "@/components/common/avatar-icon";
 
 import { EmployerProp } from "@/types/personalization/profile-type";
 import { QUERIES } from "@/services/personalization/profile-service";

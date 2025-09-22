@@ -3,8 +3,8 @@
 import type React from "react"
 import { useEffect, useState } from "react"
 
-import { useAuth } from "@/context/useAuth"
-import { useRoutes } from "@/hooks/useRoutes"
+import { useAuth } from "@/context/use-auth"
+import { useRoutes } from "@/hooks/use-routes"
 
 interface AuthGuardProps {
   children: React.ReactNode;

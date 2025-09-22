@@ -1,5 +1,6 @@
 import { clsx, type ClassValue } from "clsx"
 import { twMerge } from "tailwind-merge"
+import { format } from "date-fns";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
@@ -14,10 +15,7 @@ export const createFullName = (
   return [firstName, middleName, lastName, suffix].filter(Boolean).join(" ");
 };
 
-
-export const getInitials = (name: string) => {
-  return name.split(' ').map(n => n[0]).join('').toUpperCase();
-};
+export const getInitials = (name: string) => name.split(' ').map(n => n[0]).join('').toUpperCase();
 
 export const getEmployerStatusColor = (status: string) => {
   switch (status) {
@@ -53,7 +51,6 @@ export const getFreelancerStatusColor = (status: string) => {
   }
 }
 
-
 export function extractPriceAndPeriod(text: string) {
   if (!text) return null;
 
@@ -67,4 +64,17 @@ export function extractPriceAndPeriod(text: string) {
   }
 
   return null;
+}
+
+export const formatIsoString = (isoString: string) => {
+  if (!isoString) return "";
+  return format(new Date(isoString), "MMMM dd, yyyy");
+}
+
+export function formatDate(dateStr: string): string {
+  if (!dateStr) return "";
+
+  const date = new Date(dateStr);
+  const options: Intl.DateTimeFormatOptions = { year: "numeric", month: "long", day: "numeric" };
+  return date.toLocaleDateString("en-US", options);
 }
