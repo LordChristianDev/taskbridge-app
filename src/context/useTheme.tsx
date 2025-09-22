@@ -5,41 +5,24 @@ import {
 	type ReactNode,
 	useCallback,
 	useContext,
-	useEffect,
-	useState,
 } from "react";
+import { useTheme as useNextTheme } from "next-themes";
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
-const getTheme = (): boolean => {
-	if (typeof window === "undefined") return false;
-	const localTheme = localStorage.getItem("theme");
-	if (localTheme == null) return false;
-	return localTheme === "dark";
-};
-
 const useThemeHook = (): ThemeContextType => {
-	const [isDarkMode, setIsDarkMode] = useState<boolean>(getTheme);
+	const { theme, setTheme, systemTheme } = useNextTheme();
+
+	// Determine if dark mode is active
+	const isDarkMode = theme === 'dark' || (theme === 'system' && systemTheme === 'dark');
 
 	const toggleTheme = useCallback(() => {
-		setIsDarkMode((prev) => !prev);
-	}, []);
+		setTheme(isDarkMode ? 'light' : 'dark');
+	}, [isDarkMode, setTheme]);
 
-	const setCurrentTheme = useCallback((theme: boolean) => {
-		setIsDarkMode(theme);
-	}, []);
-
-	useEffect(() => {
-		if (typeof window === "undefined") return;
-
-		if (isDarkMode) {
-			document.documentElement.classList.add("dark");
-			localStorage.setItem("theme", "dark");
-		} else {
-			document.documentElement.classList.remove("dark");
-			localStorage.setItem("theme", "light");
-		}
-	}, [isDarkMode]);
+	const setCurrentTheme = useCallback((darkMode: boolean) => {
+		setTheme(darkMode ? 'dark' : 'light');
+	}, [setTheme]);
 
 	return { isDarkMode, toggleTheme, setCurrentTheme };
 };

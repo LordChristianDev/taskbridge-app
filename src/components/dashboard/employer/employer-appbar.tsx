@@ -27,7 +27,7 @@ import { QUERIES } from "@/services/personalization/profile-service";
 export default function EmployerAppbar() {
 	const { move } = useRoutes();
 	const { user, signOut } = useAuth();
-	const { profile, storeProfile } = useProfile();
+	const { profile, storeProfile, clearOut } = useProfile();
 
 	const { data: employer, isFetching: employerFetching } = useQuery({
 		queryKey: ['employer-profile-appbar', user?.id],
@@ -52,8 +52,9 @@ export default function EmployerAppbar() {
 	}, [employer, employerFetching]);
 
 	const handleSignOut = async () => {
-		await signOut();
 		move("/login");
+		await signOut();
+		clearOut();
 	}
 
 	return (

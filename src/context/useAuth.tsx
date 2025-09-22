@@ -75,10 +75,10 @@ export const useAuthHook = () => {
 			return false;
 		}
 
-		removeItem('user');
 		setUser(null);
 		setSession(null);
 		setSupabaseUser(null);
+		removeItem('user');
 
 		return true;
 	}

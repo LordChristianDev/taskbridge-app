@@ -27,7 +27,7 @@ import { QUERIES } from "@/services/personalization/profile-service";
 export default function FreelancerAppbar() {
 	const { move } = useRoutes();
 	const { user, signOut } = useAuth();
-	const { profile, storeProfile } = useProfile();
+	const { profile, storeProfile, clearOut } = useProfile();
 
 	const { data: freelancer, isFetching: freelancerFetching } = useQuery({
 		queryKey: ['freelancer-profile-appbar', user?.id],
@@ -52,10 +52,10 @@ export default function FreelancerAppbar() {
 	}, [freelancer, freelancerFetching]);
 
 	const handleSignOut = async () => {
-		await signOut();
 		move("/login");
+		await signOut();
+		clearOut();
 	}
-
 	return (
 		<header className="border-b bg-white/80 backdrop-blur-sm sticky top-0 z-50 dark:bg-background/80">
 			<div className="container mx-auto px-4 py-4 flex items-center justify-between">

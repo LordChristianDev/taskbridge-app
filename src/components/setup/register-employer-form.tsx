@@ -76,7 +76,7 @@ export default function RegisterEmployerForm() {
 	const onSubmit: SubmitHandler<EmployerFormProp> = async (data) => {
 		if (!data) {
 			showToast({
-				title: "Form is Empty!",
+				title: "Form Empty!",
 				description: "Please populate the account creation form.",
 				variant: "warning"
 			});

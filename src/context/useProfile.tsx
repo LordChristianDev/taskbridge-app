@@ -16,7 +16,9 @@ export const useProfileHook = () => {
 		setProfile(data);
 	}
 
-	return { profile, storeProfile };
+	const clearOut = async () => setProfile(null);
+
+	return { profile, storeProfile, clearOut };
 }
 
 export const ProfileProvider = ({ children }: ProfileProviderProps) => {
@@ -41,6 +43,7 @@ export const useProfile = (): ProfileContextType => {
 type ProfileContextType = {
 	profile: FreelancerProp | EmployerProp | null;
 	storeProfile: (data: FreelancerProp | EmployerProp) => void;
+	clearOut: () => void;
 }
 
 type ProfileProviderProps = {

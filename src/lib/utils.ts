@@ -53,3 +53,18 @@ export const getFreelancerStatusColor = (status: string) => {
   }
 }
 
+
+export function extractPriceAndPeriod(text: string) {
+  if (!text) return null;
+
+  const match = text.match(/₱?([\d.]+)\s+per\s+(\w+)/i);
+
+  if (match) {
+    return {
+      number: parseFloat(match[1]),
+      period: match[2]
+    };
+  }
+
+  return null;
+}

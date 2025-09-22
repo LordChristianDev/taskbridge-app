@@ -1,7 +1,7 @@
 import { supabase } from "@/lib/supabase";
 import { EmployerFormProp, FreelancerFormProp } from "@/types/authentication/register-types";
 import { EmployerProp, FreelancerProp, UpdateUploadProp } from "@/types/personalization/profile-type";
-import { UpdateEmployerFormProp, UpdateFreelancerFormProp } from "@/types/personalization/settings_type";
+import { UpdateEmployerFormProp, UpdateFreelancerFormProp, UpdateFreelancerSkillsFormProp } from "@/types/personalization/settings_type";
 
 export const QUERIES = {
 	fetchFreelancer: async function (user_id: number): Promise<FreelancerProp> {
@@ -110,8 +110,8 @@ export const MUTATIONS = {
 		type: "freelancer" | "employer",
 		updates: UpdateFreelancerFormProp | UpdateEmployerFormProp
 	): Promise<FreelancerProp | EmployerProp | null> {
-		if (user_id) throw new Error("No Unique Identifier found");
-		if (type) throw new Error("User Type is not found");
+		if (!user_id) throw new Error("No Unique Identifier found");
+		if (!type) throw new Error("User Type is not found");
 
 		const table = type === "freelancer"
 			? "freelancers"
@@ -127,7 +127,36 @@ export const MUTATIONS = {
 
 		const { data: data, error: error } = await supabase
 			.from(table)
-			.update({ cleanUpdates })
+			.update(cleanUpdates)
+			.eq('user_id', user_id)
+			.select('*')
+			.single();
+
+		if (error) throw new Error(error.message);
+		if (!data) return null;
+
+		return data;
+	},
+	updateFreelancerSkillsWithUserId: async function (
+		user_id: number,
+		updates: UpdateFreelancerSkillsFormProp
+	): Promise<FreelancerProp | EmployerProp | null> {
+		if (!user_id) throw new Error("No Unique Identifier found");
+
+		const { period, ...rest } = updates;
+
+		const actualUpdates = {
+			...rest,
+			rate: `${updates.rate} per ${period}`
+		};;
+
+		const cleanUpdates = Object.fromEntries(
+			Object.entries(actualUpdates).filter(([_, value]) => value !== undefined)
+		);
+
+		const { data: data, error: error } = await supabase
+			.from("freelancers")
+			.update(cleanUpdates)
 			.eq('user_id', user_id)
 			.select('*')
 			.single();
