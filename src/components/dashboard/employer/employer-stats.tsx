@@ -1,5 +1,3 @@
-"use client"
-
 import { useQuery } from "@tanstack/react-query";
 
 import { useProfile } from "@/context/use-profile";
@@ -12,7 +10,7 @@ export default function EmployerStats() {
 	const { profile } = useProfile();
 
 	const { data: stats, isFetching: statsFetching } = useQuery({
-		queryKey: ['employer-dashboard-stats'],
+		queryKey: ['employer-jobs'],
 		queryFn: () => QUERIES.fetchEmployerStats(profile!.user_id),
 		refetchOnMount: (query) => !query.state.data || query.state.data.length === 0,
 		refetchOnWindowFocus: true,
@@ -41,6 +39,7 @@ export default function EmployerStats() {
 						return (<StatCard key={stat.id} stat={stat} />);
 					})
 				)}
+
 			</div>
 		)
 	);

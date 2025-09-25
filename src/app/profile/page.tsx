@@ -14,8 +14,9 @@ import { AuthGuard } from "@/components/authentication/auth-guard";
 import { EmployerProfile } from "@/components/profile/employer/employer-profile";
 import { FreelancerProfile } from "@/components/profile/freelancer/freelancer-profile";
 
-import { QUERIES } from "@/services/personalization/profile-service";
 import { EmployerProp, FreelancerProp } from "@/types/personalization/profile-type";
+import { QUERIES } from "@/services/personalization/profile-service";
+
 
 export default function ProfilePage() {
 	return (
