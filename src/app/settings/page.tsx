@@ -14,7 +14,6 @@ export default function SettingsPage() {
   )
 }
 
-
 function SettingsContent() {
   const { user } = useAuth();
 

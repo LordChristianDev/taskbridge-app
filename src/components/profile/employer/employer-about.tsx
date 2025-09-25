@@ -5,10 +5,12 @@ import SeeMore from "@/components/common/see-more";
 import { EmployerProp } from "@/types/personalization/profile-type";
 
 export default function EmployerAbout({ profile }: { profile: EmployerProp }) {
-	const { company, company_description, company_categories } = profile ?? {} as EmployerProp;
+	const { company, company_description, company_categories, specified_company_categories } = profile ?? {} as EmployerProp;
 
-	const renderSkills = company_categories && company_categories.length > 0 && company_categories.map((category) => {
-		return (<Badge key={category} variant="outline">{category}</Badge>);
+	const renderSkills = specified_company_categories && specified_company_categories.length > 0 && specified_company_categories.map((category) => {
+		const { id, title } = category;
+
+		return (<Badge key={id} variant="outline">{title}</Badge>);
 	});
 
 	return (

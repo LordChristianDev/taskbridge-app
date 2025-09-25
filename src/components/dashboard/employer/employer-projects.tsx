@@ -1,88 +1,29 @@
 "use client"
 
 import { useQuery } from "@tanstack/react-query";
-import { MessageSquare, MoreHorizontal } from "lucide-react";
+import { MoreHorizontal } from "lucide-react";
 
-import { getEmployerStatusColor } from "@/lib/utils";
+import { useProfile } from "@/context/use-profile";
+import { createFullName, formatIsoString, formDateTimeString, getEmployerStatusColor } from "@/lib/utils";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Card, CardContent } from "@/components/ui/card";
 
-import { MockProjectProp } from "@/types/dashboard/employer-type";
-import { QUERIES } from "@/services/dashboard/employer-service";
+import { ProjectProp } from "@/types/dashboard/project-type";
+import { QUERIES } from "@/services/dashboard/project-service";
 
 export default function EmployerProjects() {
+	const { profile } = useProfile();
+
 	const { data: projects, isFetching: projectsFetching } = useQuery({
 		queryKey: ['employer-projects'],
-		queryFn: () => QUERIES.fetchMockProjects(),
-		initialData: [] as MockProjectProp[],
-		refetchOnMount: (query) => !query.state.data || query.state.data.length === 0,
-	});
-
-	const renderProjects = projects.map((project) => {
-		const { id, title, freelancer, budget, deadline, progress, lastUpdate, status } = project;
-		const cname = getEmployerStatusColor(status);
-
-		return (
-			<Card key={id} className='mb-6 mr-4'>
-				<CardContent className="p-6">
-					<div className="flex items-start justify-between mb-4">
-						<div className="flex-1">
-							<h3 className="text-lg font-semibold mb-1">{title}</h3>
-							<p className="text-sm text-muted-foreground mb-3">Working with {freelancer}</p>
-
-							<div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
-								<div>
-									<p className="text-xs text-muted-foreground">Budget</p>
-									<p className="font-semibold">{budget}</p>
-								</div>
-								<div>
-									<p className="text-xs text-muted-foreground">Deadline</p>
-									<p className="font-semibold">{deadline}</p>
-								</div>
-								<div>
-									<p className="text-xs text-muted-foreground">Progress</p>
-									<p className="font-semibold">{progress}%</p>
-								</div>
-								<div>
-									<p className="text-xs text-muted-foreground">Last Update</p>
-									<p className="font-semibold">{lastUpdate}</p>
-								</div>
-							</div>
-
-							<div className="space-y-2">
-								<div className="flex justify-between text-sm">
-									<span>Progress</span>
-									<span>{progress}%</span>
-								</div>
-								<div className="w-full bg-muted rounded-full h-2">
-									<div
-										className="bg-primary h-2 rounded-full"
-										style={{ width: `${progress}%` }}
-									></div>
-								</div>
-							</div>
-						</div>
-
-						<div className="flex items-center space-x-2">
-							<Badge variant="outline" className={cname}>
-								{status}
-							</Badge>
-
-							<Button variant="ghost" size="sm">
-								<MessageSquare className="w-4 h-4" />
-							</Button>
-
-							<Button variant="ghost" size="sm">
-								<MoreHorizontal className="w-4 h-4" />
-							</Button>
-						</div>
-					</div>
-				</CardContent>
-			</Card>
-		);
+		queryFn: () => QUERIES.fetchProjectsByEmployerId({ id: profile!.user_id }),
+		refetchOnWindowFocus: true,
+		refetchOnMount: true,
+		enabled: !!profile!.user_id,
+		staleTime: 0,
 	});
 
 	return (
@@ -97,9 +38,73 @@ export default function EmployerProjects() {
 				</div>
 			) : (
 				<ScrollArea className="space-y-4 h-128">
-					{renderProjects}
+					<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+						{!projects || projects.length === 0 ? (
+							<div className="flex flex-col items-center justify-center h-64">
+								<p className="text-sm text-muted-foreground">No projects found</p>
+							</div>
+						) : (
+							projects.map((project) => {
+								return (<ProjectCard key={project.id} project={project} />);
+							})
+						)}
+					</div>
 				</ScrollArea >
 			)}
 		</>
 	);
-}
+};
+
+function ProjectCard({ project }: { project: ProjectProp }) {
+	const { id, started_at, updated_at, deadline, project_status, job, freelancer, proposal } = project;
+	const { title } = job;
+	const { first_name, last_name } = freelancer;
+	const { proposed_budget } = proposal;
+
+	const fullName = createFullName(first_name, last_name);
+	const last_update = updated_at ? formatIsoString(updated_at) : formatIsoString(started_at)
+	const current_deadline = formDateTimeString(deadline);
+	const cname = getEmployerStatusColor(project_status.value);
+
+	return (
+		<Card key={id} className='mb-6 mr-4'>
+			<CardContent className="px-6">
+				<div className="flex items-start justify-between">
+					<div className="flex-1">
+						<h3 className="text-lg font-semibold mb-1">{title}</h3>
+						<p className="text-sm text-muted-foreground mb-3">Working with {fullName}</p>
+					</div>
+
+					<div className="flex items-center space-x-2">
+						<Badge variant="outline" className={cname}>
+							{project_status.label}
+						</Badge>
+
+						<Button variant="ghost" size="sm">
+							<MoreHorizontal className="w-4 h-4" />
+						</Button>
+					</div>
+				</div>
+
+				<div>
+					<div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+						<div>
+							<p className="text-xs text-muted-foreground">Budget</p>
+							<p className="text-sm font-semibold">₱ {proposed_budget}</p>
+						</div>
+
+						<div>
+							<p className="text-xs text-muted-foreground">Deadline</p>
+							<p className="text-sm font-semibold">{current_deadline}</p>
+						</div>
+
+						<div>
+							<p className="text-xs text-muted-foreground">Last Update</p>
+							<p className="text-sm font-semibold">{last_update}</p>
+						</div>
+					</div>
+				</div>
+			</CardContent>
+		</Card>
+	);
+};

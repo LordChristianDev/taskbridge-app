@@ -29,7 +29,7 @@ export function AuthGuard({ children, requiredUserType }: AuthGuardProps) {
     }
 
     setIsLoading(false)
-  }, [requiredUserType, move])
+  }, [user, requiredUserType, move])
 
   if (isLoading) {
     return (

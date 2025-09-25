@@ -186,7 +186,6 @@ export default function FreelancerSkills() {
 								)}
 							</div>
 
-
 							<div className="flex-1 space-y-2">
 								<Label htmlFor="period">Per Period</Label>
 								<Controller
@@ -231,7 +230,6 @@ export default function FreelancerSkills() {
 
 					<div className="space-y-2">
 						<Label htmlFor="skills">Skills</Label>
-
 						<Controller
 							name="skills"
 							control={control}

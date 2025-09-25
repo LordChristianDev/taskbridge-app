@@ -53,7 +53,6 @@ export default function FreelancerProfile() {
 			email: profile?.email ?? "",
 			bio: "bio" in (profile ?? {}) ? (profile as FreelancerProp).bio ?? "" : "",
 
-
 			middle_name: profile?.middle_name ?? "",
 			suffix: profile?.suffix ?? "",
 		},
@@ -209,7 +208,6 @@ export default function FreelancerProfile() {
 									</Select>
 								)}
 							/>
-
 							{errors.sex && (
 								<p className="text-sm text-red-600 mt-1">
 									{errors.sex.message}
@@ -247,7 +245,6 @@ export default function FreelancerProfile() {
 								type="number"
 								placeholder="Enter phone number..."
 							/>
-
 							{errors.phone && (
 								<p className="text-sm text-red-600 mt-1">
 									{errors.phone.message}
@@ -262,7 +259,6 @@ export default function FreelancerProfile() {
 								type="text"
 								placeholder="Enter email..."
 							/>
-
 							{errors.email && (
 								<p className="text-sm text-red-600 mt-1">
 									{errors.email.message}
@@ -284,8 +280,6 @@ export default function FreelancerProfile() {
 							</p>
 						)}
 					</div>
-
-
 				</CardContent>
 			</Card >
 

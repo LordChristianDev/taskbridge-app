@@ -27,9 +27,8 @@ export default function LoginPage() {
 	useEffect(() => {
 		if (user) {
 			if (!user.is_setup) {
-				console.log("Moved to setup", user);
 				move("/setup");
-			} else {
+			} else if (user.is_setup) {
 				move("/dashboard");
 			}
 		} else if (supabaseUser && !user) {

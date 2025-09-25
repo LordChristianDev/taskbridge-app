@@ -52,9 +52,9 @@ export default function FreelancerAppbar() {
 	}, [freelancer, freelancerFetching]);
 
 	const handleSignOut = async () => {
-		move("/login");
 		await signOut();
 		clearOut();
+		move("/login");
 	}
 	return (
 		<header className="border-b bg-white/80 backdrop-blur-sm sticky top-0 z-50 dark:bg-background/80">

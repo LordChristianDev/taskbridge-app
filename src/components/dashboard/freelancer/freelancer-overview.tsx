@@ -1,102 +1,59 @@
 "use client"
 
 import { useQuery } from '@tanstack/react-query';
-import { Search } from "lucide-react";
+import Link from 'next/link';
+import { Eye } from 'lucide-react';
 
-import { getFreelancerStatusColor } from "@/lib/utils";
+import { useProfile } from '@/context/use-profile';
+import {
+	capitalizeFirstLetter,
+	createFullName,
+	getFreelancerStatusColor
+} from "@/lib/utils";
+
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+	Card,
+	CardContent,
+	CardDescription,
+	CardHeader,
+	CardTitle
+} from "@/components/ui/card";
+import { ScrollArea } from '@/components/ui/scroll-area';
 
-import { MockActiveProjectProp, MockJobProp } from '@/types/dashboard/freelancer-type';
-import { QUERIES } from '@/services/dashboard/freelancer-service';
+import { JobProp } from '@/types/dashboard/job-type';
+import { ProjectProp } from '@/types/dashboard/project-type';
+import { FreelancerProp } from '@/types/personalization/profile-type';
+import { QUERIES as JOB_QUERIES } from '@/services/dashboard/job-service';
+import { QUERIES as PROJECT_QUERIES } from '@/services/dashboard/project-service';
+import { QUERIES as PRROPOSAL_QUERIES } from '@/services/dashboard/proposal-service';
 
 export default function FreelancerOverview() {
+	const { profile } = useProfile();
+
 	const { data: jobs, isFetching: jobsFetching } = useQuery({
-		queryKey: ['freelancer-jobs'],
-		queryFn: () => QUERIES.fetchMockJobs(),
-		initialData: [] as MockJobProp[],
-		refetchOnMount: (query) => !query.state.data || query.state.data.length === 0,
+		queryKey: ['freelancer-overview-jobs'],
+		queryFn: () => JOB_QUERIES.fetchJobsByCategories((profile as FreelancerProp).skills ?? []),
+		refetchOnWindowFocus: true,
+		refetchOnMount: true,
+		staleTime: 0,
 	});
 
 	const { data: projects, isFetching: projectsFetching } = useQuery({
-		queryKey: ['freelancer-active-projects'],
-		queryFn: () => QUERIES.fetchMockActiveProjects(),
-		initialData: [] as MockActiveProjectProp[],
-		refetchOnMount: (query) => !query.state.data || query.state.data.length === 0,
-	});
-
-	const renderJobs = jobs.slice(0, 2).map((job) => {
-		const { id, title, company, budget, duration, posted, skills, category } = job;
-
-		const renderSkills = skills.slice(0, 3).map((skill) => {
-			return (<Badge key={skill} variant="secondary" className="text-xs">{skill}</Badge>);
-		});
-
-		return (
-			<div key={id} className="p-4 border rounded-lg">
-				<div className="mb-2 flex items-start justify-between">
-					<h4 className="font-semibold text-sm">{title}</h4>
-					<Badge variant="outline">{category.title}</Badge>
-				</div>
-				<p className="text-xs text-muted-foreground mb-2">{company}</p>
-				<p className="text-xs text-muted-foreground mb-3">
-					{budget} • {duration}
-				</p>
-				<div className="flex flex-wrap gap-1 mb-3">
-					{renderSkills}
-				</div>
-				<div className="flex justify-between items-center">
-					<span className="text-xs text-muted-foreground">Posted {posted}</span>
-					<Button size="sm" variant="outline">
-						View Details
-					</Button>
-				</div>
-			</div>
-		);
-	});
-
-	const renderProjects = projects.map((project) => {
-		const { id, title, client, status, progress, deadline, budget } = project;
-		const cname = getFreelancerStatusColor(status);
-
-		return (
-			<div key={id} className="p-4 border rounded-lg">
-				<div className="flex items-start justify-between mb-3">
-					<div>
-						<h4 className="font-semibold text-sm">{title}</h4>
-						<p className="text-xs text-muted-foreground">for {client}</p>
-					</div>
-					<Badge variant="outline" className={cname}>
-						{status}
-					</Badge>
-				</div>
-				<div className="space-y-2">
-					<div className="flex justify-between text-xs">
-						<span>Progress</span>
-						<span>{progress}%</span>
-					</div>
-					<div className="w-full bg-muted rounded-full h-2">
-						<div className="bg-primary h-2 rounded-full" style={{ width: `${progress}%` }}></div>
-					</div>
-					<div className="flex justify-between text-xs text-muted-foreground">
-						<span>Due: {deadline}</span>
-						<span>{budget}</span>
-					</div>
-				</div>
-			</div>
-		);
+		queryKey: ['freelancer-overview-projects'],
+		queryFn: () => PROJECT_QUERIES.fetchProjectsByFreelancerId({ id: profile!.user_id }),
+		refetchOnWindowFocus: true,
+		refetchOnMount: true,
+		enabled: !!profile!.user_id,
+		staleTime: 0,
 	});
 
 	return (
 		<>
 			<div className="flex items-center justify-between">
 				<h2 className="text-2xl font-bold">Dashboard Overview</h2>
-				<Button>
-					<Search className="w-4 h-4" />
-					Browse Jobs
-				</Button>
 			</div>
 
 			{jobsFetching || projectsFetching ? (
@@ -115,7 +72,17 @@ export default function FreelancerOverview() {
 							<CardDescription>Jobs that match your skills</CardDescription>
 						</CardHeader>
 						<CardContent className="space-y-4">
-							{renderJobs}
+							<ScrollArea className="space-y-4 h-96">
+								{!jobs || jobs.length === 0 ? (
+									<div className="flex flex-col items-center justify-center h-64">
+										<p className="text-sm text-muted-foreground">No jobs found</p>
+									</div>
+								) : (
+									jobs.slice(0, 3).map((job) => {
+										return (<JobCard key={job.id} job={job} />);
+									})
+								)}
+							</ScrollArea>
 						</CardContent>
 					</Card>
 
@@ -126,11 +93,84 @@ export default function FreelancerOverview() {
 							<CardDescription>Your current work in progress</CardDescription>
 						</CardHeader>
 						<CardContent className="space-y-4">
-							{renderProjects}
+							<ScrollArea className="space-y-4 h-96">
+								{!projects || projects.length === 0 ? (
+									<div className="flex flex-col items-center justify-center h-64">
+										<p className="text-sm text-muted-foreground">No projects found</p>
+									</div>
+								) : (
+									projects
+										.filter((p) => ["negotiation", "contract-signed", "preparing", "in-progress", "review", "revisions"].includes(p.status))
+										.map((project) => {
+											return (<ProjectCard key={project.id} project={project} />);
+										})
+								)}
+							</ScrollArea>
 						</CardContent>
 					</Card>
 				</div>
 			)}
 		</>
 	);
-}
+};
+
+function JobCard({ job }: { job: JobProp }) {
+	const { id, title, min_budget, max_budget, duration, status } = job;
+
+	const { data: proposals } = useQuery({
+		queryKey: ['freelancer-job-proposals', id],
+		queryFn: () => PRROPOSAL_QUERIES.fetchProposalsByJobId(id),
+		refetchOnWindowFocus: true,
+		refetchOnMount: true,
+		enabled: true,
+		staleTime: 0,
+	});
+
+	const cname = getFreelancerStatusColor(status)
+
+	return (
+		<div key={id} className="p-4 flex items-start justify-between border rounded-lg">
+			<div className="flex-1">
+				<h4 className="mb-1 font-semibold text-sm">{title}</h4>
+				<p className="mb-2 text-xs text-muted-foreground">
+					{`₱ ${min_budget} - ${max_budget}`} • {duration}
+				</p>
+				<div className="flex items-center space-x-2">
+					<Badge variant="outline" className={cname}>
+						{capitalizeFirstLetter(status)}
+					</Badge>
+					<span className="text-xs text-muted-foreground">{proposals?.length} proposals</span>
+				</div>
+			</div>
+			<Link href={`/job/${id}`} target='_blank'>
+				<Button variant="ghost" size="sm">
+					<Eye className="w-4 h-4" />
+				</Button>
+			</Link>
+
+		</div>
+	);
+};
+
+function ProjectCard({ project }: { project: ProjectProp }) {
+	const { id, freelancer, project_status, job } = project;
+	const { title } = job;
+	const { first_name, last_name } = freelancer;
+
+	const fullName = createFullName(first_name, last_name);
+	const cname = getFreelancerStatusColor(project_status.value)
+
+	return (
+		<div key={id} className="p-4 border rounded-lg">
+			<div className="flex items-start justify-between">
+				<div>
+					<h4 className="font-semibold text-sm">{title}</h4>
+					<p className="text-xs text-muted-foreground">with {fullName}</p>
+				</div>
+				<Badge variant="outline" className={cname}>
+					{project_status.label}
+				</Badge>
+			</div>
+		</div>
+	);
+};

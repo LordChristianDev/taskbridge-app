@@ -55,4 +55,13 @@ export type CategoryProp = {
 	title: string;
 	value: string;
 	created_at: string;
-}
+};
+
+export type LevelProp = {
+	id: number;
+	title: string;
+	value: string;
+	created_at: string;
+};
+
+

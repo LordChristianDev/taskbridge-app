@@ -5,6 +5,7 @@ import type { Session, User } from '@supabase/supabase-js'
 
 import { supabase } from '@/lib/supabase';
 import { getItem, removeItem, setItem } from '@/lib/local-storage';
+import { usePersistedState } from '@/hooks/use-persisted-state';
 
 const getLocalUser = (): UserProp | null => {
 	const data = getItem('user');
@@ -16,7 +17,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const useAuthHook = () => {
 	const [session, setSession] = useState<Session | null>(null);
-	const [user, setUser] = useState<UserProp | null>(getLocalUser());
+	const [user, setUser] = usePersistedState<UserProp | null>("user", getLocalUser());
 	const [supabaseUser, setSupabaseUser] = useState<User | null>(null);
 
 	useEffect(() => {

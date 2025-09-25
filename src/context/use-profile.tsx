@@ -1,12 +1,16 @@
 "use client"
 
-import { createContext, useContext, useState, type ReactNode } from "react";
+import { createContext, useContext, type ReactNode } from "react";
+import { usePersistedState } from "@/hooks/use-persisted-state";
+
 import { EmployerProp, FreelancerProp } from "@/types/personalization/profile-type";
+import { removeItem } from "@/lib/local-storage";
+
 
 const ProfileContext = createContext<ProfileContextType | undefined>(undefined);
 
 export const useProfileHook = () => {
-	const [profile, setProfile] = useState<FreelancerProp | EmployerProp | null>(null);
+	const [profile, setProfile] = usePersistedState<FreelancerProp | EmployerProp | null>("profile", null);
 
 	const storeProfile = (data: FreelancerProp | EmployerProp) => {
 		if (!data) {
@@ -16,7 +20,10 @@ export const useProfileHook = () => {
 		setProfile(data);
 	}
 
-	const clearOut = async () => setProfile(null);
+	const clearOut = async () => {
+		setProfile(null);
+		removeItem("profile");
+	};
 
 	return { profile, storeProfile, clearOut };
 }

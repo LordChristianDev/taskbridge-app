@@ -7,6 +7,7 @@ import { useRoutes } from "@/hooks/use-routes";
 
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/settings/theme-toggle";
+
 import { FreelancerProp } from "@/types/personalization/profile-type";
 
 type FreelancrHeaderProp = {
@@ -16,6 +17,7 @@ type FreelancrHeaderProp = {
 
 export default function FreelancerHeader({ profile, isOwnProfile }: FreelancrHeaderProp) {
 	const { back } = useRoutes();
+	const { first_name } = profile ?? {} as FreelancerProp;
 
 	return (
 		<header className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50">
@@ -25,7 +27,7 @@ export default function FreelancerHeader({ profile, isOwnProfile }: FreelancrHea
 						<ArrowLeft className="mr-2 w-4 h-4" />
 						Back
 					</Button>
-					<h1 className="text-xl font-semibold">{isOwnProfile ? "My Profile" : `${profile.first_name}'s Profile`}</h1>
+					<h1 className="text-xl font-semibold">{isOwnProfile ? "My Profile" : `${first_name}'s Profile`}</h1>
 				</div>
 				<div className="flex items-center gap-2">
 					{isOwnProfile && (

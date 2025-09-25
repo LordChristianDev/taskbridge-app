@@ -1,3 +1,5 @@
+import { CategoryProp } from "@/types/personalization/settings_type";
+
 export type FreelancerProp = {
 	id: number;
 	user_id: number;
@@ -19,6 +21,7 @@ export type FreelancerProp = {
 	rate: string | null;
 	education: string | null;
 	skills: string[] | null;
+	specified_skills: CategoryProp[] | null;
 
 	created_at: string;
 }
@@ -43,6 +46,7 @@ export type EmployerProp = {
 	company: string;
 	company_description: string | null;
 	company_categories: string[] | null;
+	specified_company_categories: CategoryProp[] | null;
 
 	created_at: string;
 }

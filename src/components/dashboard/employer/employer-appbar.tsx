@@ -52,9 +52,9 @@ export default function EmployerAppbar() {
 	}, [employer, employerFetching]);
 
 	const handleSignOut = async () => {
-		move("/login");
 		await signOut();
 		clearOut();
+		move("/login");
 	}
 
 	return (

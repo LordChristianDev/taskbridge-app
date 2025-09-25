@@ -1,7 +1,7 @@
 import { supabase } from "@/lib/supabase";
 import { EmployerFormProp, FreelancerFormProp } from "@/types/authentication/register-types";
 import { EmployerProp, FreelancerProp, UpdateUploadProp } from "@/types/personalization/profile-type";
-import { UpdateEmployerFormProp, UpdateFreelancerFormProp, UpdateFreelancerSkillsFormProp } from "@/types/personalization/settings_type";
+import { CategoryProp, UpdateEmployerFormProp, UpdateFreelancerFormProp, UpdateFreelancerSkillsFormProp } from "@/types/personalization/settings_type";
 
 export const QUERIES = {
 	fetchFreelancer: async function (user_id: number): Promise<FreelancerProp> {
@@ -16,14 +16,16 @@ export const QUERIES = {
 		if (freelancerError) throw new Error(freelancerError.message);
 		if (!freelancerData) return {} as FreelancerProp;
 
+		if (!freelancerData.skills) return freelancerData;
+
 		let freelancer: FreelancerProp = freelancerData;
 
-		const categoriesData = await QUERIES.fetchCategoriesByValue(freelancer?.skills ?? []);
-		if (categoriesData) freelancer = { ...freelancer, skills: categoriesData };
+		const categoriesData = await QUERIES.fetchCategoriesByValue(freelancerData.skills);
+		freelancer = { ...freelancer, specified_skills: categoriesData };
 
 		return freelancer;
 	},
-	fetchEmployer: async function (user_id: number): Promise<EmployerProp | null> {
+	fetchEmployer: async function (user_id: number): Promise<EmployerProp> {
 		if (!user_id) throw new Error("No unique identifier found");
 
 		const { data: employersData, error: employersError } = await supabase
@@ -33,16 +35,18 @@ export const QUERIES = {
 			.single();
 
 		if (employersError) throw new Error(employersError.message);
-		if (!employersData) return null;
+		if (!employersData) return {} as EmployerProp;
+
+		if (!employersData.company_categories) return employersData;
 
 		let employer: EmployerProp = employersData;
 
-		const categoriesData = await QUERIES.fetchCategoriesByValue(employer?.company_categories ?? []);
-		if (categoriesData) employer = { ...employer, company_categories: categoriesData };
+		const categoriesData = await QUERIES.fetchCategoriesByValue(employersData.company_categories);
+		employer = { ...employer, specified_company_categories: categoriesData };
 
 		return employer;
 	},
-	fetchCategoriesByValue: async function (values: string[]): Promise<string[]> {
+	fetchCategoriesByValue: async function (values: string[]): Promise<CategoryProp[]> {
 		if (!values || values.length === 0) return [];
 
 		const { data: categoriesData, error: categoriesError } = await supabase
@@ -54,9 +58,9 @@ export const QUERIES = {
 		if (categoriesError) console.error(categoriesError.message);
 		if (!categoriesData) return [];
 
-		const categories = categoriesData.map(cat => cat.title);
+		console.log("Categories Data Fetch: ", categoriesData);
 
-		return categories;
+		return categoriesData;
 	},
 	retrieveBucketUrl: async function (name: string, bucket: string): Promise<string> {
 		if (!name) throw new Error("Unable to determine url with no file name");
@@ -86,14 +90,14 @@ export const MUTATIONS = {
 
 		if (!table) return null;
 
-		const cleanUpdates = Object.fromEntries(
+		const cleanArgs = Object.fromEntries(
 			Object.entries(args).filter(([_, value]) => value !== undefined)
 		)
 
 		const { data, error } = await supabase
 			.from(table)
 			.insert([{
-				...cleanUpdates,
+				...cleanArgs,
 				user_id,
 				avatar_url,
 			}])

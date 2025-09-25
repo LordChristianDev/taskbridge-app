@@ -1,5 +1,5 @@
 import { supabase } from "@/lib/supabase";
-import { CategoryProp } from "@/types/personalization/settings_type";
+import { CategoryProp, LevelProp } from "@/types/personalization/settings_type";
 
 export const QUERIES = {
 	fetchCategories: async function (): Promise<CategoryProp[]> {
@@ -12,5 +12,16 @@ export const QUERIES = {
 		if (!categoriesData) return [];
 
 		return categoriesData;
+	},
+	fetchLevels: async function (): Promise<LevelProp[]> {
+		const { data: levelsData, error: levelsError } = await supabase
+			.from('levels')
+			.select('*')
+			.order('created_at', { ascending: false });
+
+		if (levelsError) throw new Error(levelsError.message);
+		if (!levelsData) return [];
+
+		return levelsData;
 	},
 };
