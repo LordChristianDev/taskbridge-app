@@ -5,8 +5,6 @@ import Link from "next/link";
 import Image from "next/image";;
 import { ArrowLeft } from "lucide-react";
 
-import type React from "react";
-
 import { useAuth } from "@/context/use-auth";
 import { useRoutes } from "@/hooks/use-routes";
 

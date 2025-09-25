@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react";
+import Link from "next/link";
 import { useQuery } from '@tanstack/react-query';
 import { Search } from "lucide-react";
 
@@ -16,8 +17,6 @@ import AvatarIcon from "@/components/common/avatar-icon";
 
 import { FreelancerProp } from "@/types/personalization/profile-type";
 import { QUERIES } from '@/services/dashboard/freelancer-service';
-import Link from "next/link";
-
 
 export default function EmployerTalent() {
 	const [search, setSearch] = useState<string>("");

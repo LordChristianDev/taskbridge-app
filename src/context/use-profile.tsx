@@ -1,11 +1,11 @@
 "use client"
 
 import { createContext, useContext, type ReactNode } from "react";
-import { usePersistedState } from "@/hooks/use-persisted-state";
 
-import { EmployerProp, FreelancerProp } from "@/types/personalization/profile-type";
+import { usePersistedState } from "@/hooks/use-persisted-state";
 import { removeItem } from "@/lib/local-storage";
 
+import { EmployerProp, FreelancerProp } from "@/types/personalization/profile-type";
 
 const ProfileContext = createContext<ProfileContextType | undefined>(undefined);
 
@@ -16,7 +16,6 @@ export const useProfileHook = () => {
 		if (!data) {
 			throw new Error('Data for profile storage is empty');
 		}
-
 		setProfile(data);
 	}
 

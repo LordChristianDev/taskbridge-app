@@ -72,6 +72,7 @@ export default function JobDetailPage({ params }: { params: Promise<{ id: number
                 <div className="h-48 w-full bg-muted rounded"></div>
                 <div className="h-48 w-full bg-muted rounded"></div>
               </div>
+
               <div className="lg:col-span-1 space-y-4">
                 <div className="h-48 w-full bg-muted rounded"></div>
                 <div className="h-48 w-full bg-muted rounded"></div>

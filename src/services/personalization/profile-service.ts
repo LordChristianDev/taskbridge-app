@@ -58,8 +58,6 @@ export const QUERIES = {
 		if (categoriesError) console.error(categoriesError.message);
 		if (!categoriesData) return [];
 
-		console.log("Categories Data Fetch: ", categoriesData);
-
 		return categoriesData;
 	},
 	retrieveBucketUrl: async function (name: string, bucket: string): Promise<string> {
@@ -235,8 +233,6 @@ export const MUTATIONS = {
 
 		const cover_url = await QUERIES.retrieveBucketUrl(name, "covers");
 		if (!cover_url) return null;
-
-		console.log("Cover URL: ", cover_url);
 
 		const { data, error } = await supabase
 			.from(table)

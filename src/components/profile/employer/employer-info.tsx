@@ -64,7 +64,6 @@ export default function EmployerInfo({ profile, isOwnProfile }: EmployerInfoProp
 						<CalendarFold className="h-4 w-4" />{formatBirthDate}
 					</div>
 				</div>
-
 			</CardContent>
 		</Card >
 	);

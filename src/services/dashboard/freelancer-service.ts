@@ -33,8 +33,6 @@ export const QUERIES = {
 
 				let setFreelancer: FreelancerProp = freelancer;
 
-				console.log(freelancer.skills);
-
 				const categoriesData = await PROFILE_QUERIES.fetchCategoriesByValue(freelancer.skills);
 				setFreelancer = { ...setFreelancer, specified_skills: categoriesData };
 

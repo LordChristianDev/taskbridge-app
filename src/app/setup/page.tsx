@@ -3,8 +3,6 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 
-import type React from "react";
-
 import { useAuth } from "@/context/use-auth";
 import { useRoutes } from "@/hooks/use-routes";
 

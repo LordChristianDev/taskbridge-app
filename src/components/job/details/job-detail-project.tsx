@@ -1,4 +1,4 @@
-import { Clock, DollarSign, Users, Star } from "lucide-react";
+import { Clock, DollarSign, Users } from "lucide-react";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 

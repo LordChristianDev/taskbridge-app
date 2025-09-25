@@ -32,6 +32,7 @@ export default function EmployerHeader({ profile, isOwnProfile }: EmployerHeader
 						{isOwnProfile ? "My Company Profile" : `${company}`}
 					</h1>
 				</div>
+
 				<div className="flex items-center gap-2">
 					{isOwnProfile && (
 						<Button variant="outline" size="sm" asChild>

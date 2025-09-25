@@ -135,8 +135,6 @@ export const MUTATIONS = {
 		if (error) throw new Error(error.message);
 		if (!data) return false;
 
-		console.log(data);
-
 		return data ? true : false;
 	},
 	updateProjectStatus: async function (

@@ -13,7 +13,6 @@ import UploadAvatarDialog from "@/components/common/upload-avatar-dialog";
 
 import { EmployerProp } from "@/types/personalization/profile-type";
 
-
 export default function EmployerCover({ profile }: { profile: EmployerProp }) {
 	const [isCoverHovered, setIsCoverHovered] = useState<boolean>(false);
 	const [isAvatarHovered, setIsAvatarHovered] = useState<boolean>(false);

@@ -150,7 +150,7 @@ export default function FreelancerJobs() {
 	);
 };
 
-export function JobCard({ job }: { job: JobProp }) {
+function JobCard({ job }: { job: JobProp }) {
 	const { id, created_at, title, description, min_budget, max_budget, duration, level, is_urgent, categories, employer } = job;
 	const { company } = employer;
 

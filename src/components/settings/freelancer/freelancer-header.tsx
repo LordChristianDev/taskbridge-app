@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowLeft, Plus, X, Star } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/settings/theme-toggle";
@@ -23,6 +23,5 @@ export default function FreelancerHeader() {
 				</div>
 			</div>
 		</header>
-
 	);
 }

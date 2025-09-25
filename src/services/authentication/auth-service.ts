@@ -22,8 +22,6 @@ export const MUTATIONS = {
 	createUserWithUID: async function (uid: string): Promise<UserProp | null> {
 		if (!uid) throw new Error("No Supabase UID Identifier");
 
-		console.log("I am currently here", uid);
-
 		const { data: userData, error: userError } = await supabase
 			.from('users')
 			.insert([{

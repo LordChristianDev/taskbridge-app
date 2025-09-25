@@ -11,7 +11,6 @@ import AvatarIcon from "@/components/common/avatar-icon";
 
 import { JobProp } from "@/types/dashboard/job-type";
 
-
 export default function JobDetailEmployer({ job }: { job: JobProp }) {
 	const { user } = useAuth();
 

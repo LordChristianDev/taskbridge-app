@@ -1,3 +1,5 @@
+"use client"
+
 import { useEffect, useState } from "react";
 import { getItem, setItem } from "@/lib/local-storage";
 

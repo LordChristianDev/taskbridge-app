@@ -9,7 +9,6 @@ export default function EmployerAbout({ profile }: { profile: EmployerProp }) {
 
 	const renderSkills = specified_company_categories && specified_company_categories.length > 0 && specified_company_categories.map((category) => {
 		const { id, title } = category;
-
 		return (<Badge key={id} variant="outline">{title}</Badge>);
 	});
 
